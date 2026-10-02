@@ -1,0 +1,217 @@
+{
+  "sections": {
+    "sniffari_hero": {
+      "type": "custom-liquid",
+      "settings": {
+        "custom_liquid": "<div class=\"sniffari-hero\">\n  <div class=\"sniffari-hero__inner\">\n    <div class=\"sniffari-hero__copy\">\n      <p class=\"sniffari-hero__eyebrow\">For dogs &amp; cats who live indoors</p>\n      <h1 class=\"sniffari-hero__title\">A bored pet is an expensive pet.</h1>\n      <p class=\"sniffari-hero__lead\">Snuffle mats, slow feeders and lick mats turn a 40-second meal into fifteen minutes of nose work &mdash; the closest thing to a walk you can do on a rainy Tuesday.</p>\n      <div class=\"sniffari-hero__cta\">\n        <a class=\"button\" href=\"/collections/bestsellers\">Shop bestsellers</a>\n        <a class=\"button button--secondary\" href=\"/collections/bundles\">See the bundles</a>\n      </div>\n      <ul class=\"sniffari-hero__points\">\n        <li>No batteries, no apps, no subscriptions</li>\n        <li>Free US shipping over $35</li>\n        <li>30-day returns, no arguing</li>\n      </ul>\n    </div>\n    <div class=\"sniffari-hero__art\">\n      <img src=\"{{ 'sniffari-hero.png' | asset_url }}\" alt=\"Illustration of a dog sniffing a textured snuffle mat on a living-room floor\" width=\"1024\" height=\"1024\" loading=\"eager\">\n    </div>\n  </div>\n</div>\n<style>\n  .sniffari-hero { background: linear-gradient(180deg, #EFE6D8 0%, #FBF7F0 100%); padding: 2.6rem 0 1.6rem; }\n  .sniffari-hero__inner { max-width: 120rem; margin: 0 auto; padding: 0 2rem; display: grid; gap: 2.4rem; }\n  .sniffari-hero__eyebrow { text-transform: uppercase; letter-spacing: .11em; font-size: 1.1rem; font-weight: 600; color: #C0663A; margin: 0 0 1rem; }\n  .sniffari-hero__title { margin: 0 0 1.2rem; }\n  .sniffari-hero__lead { font-size: 1.6rem; color: rgba(22,33,28,.72); max-width: 34em; margin: 0 0 1.8rem; }\n  .sniffari-hero__cta { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.8rem; }\n  .sniffari-hero__cta .button { margin: 0; }\n  .sniffari-hero__cta .button--secondary { background: transparent; color: #16211C; box-shadow: inset 0 0 0 1px #16211C; }\n  .sniffari-hero__points { list-style: none; padding: 0; margin: 0; display: grid; gap: .6rem; font-size: 1.4rem; color: rgba(22,33,28,.72); }\n  .sniffari-hero__points li::before { content: \"✓\"; color: #7E9C86; font-weight: 700; margin-right: .7rem; }\n  .sniffari-hero__art img { width: 100%; height: auto; border-radius: 22px; display: block; }\n  @media screen and (min-width: 750px) {\n    .sniffari-hero { padding: 4.4rem 0 2.4rem; }\n    .sniffari-hero__inner { grid-template-columns: 1.05fr .95fr; align-items: center; gap: 3.4rem; }\n    .sniffari-hero__title { font-size: 4.6rem; }\n  }\n</style>",
+        "color_scheme": "scheme-1",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "bestsellers": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "The three that sell themselves",
+        "heading_size": "h2",
+        "description": "Start here if you are not sure. These are the products people come back for.",
+        "show_description": true,
+        "description_style": "body",
+        "collection": "bestsellers",
+        "products_to_show": 4,
+        "columns_desktop": 4,
+        "columns_mobile": "2",
+        "color_scheme": "scheme-1",
+        "full_width": false,
+        "show_view_all": true,
+        "view_all_style": "link",
+        "enable_desktop_slider": false,
+        "swipe_on_mobile": true,
+        "image_ratio": "square",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "standard",
+        "padding_top": 52,
+        "padding_bottom": 36
+      }
+    },
+    "why_it_works": {
+      "type": "multicolumn",
+      "blocks": {
+        "b1": {
+          "type": "column",
+          "settings": {
+            "title": "Sniffing tires a dog out faster than walking",
+            "text": "<p>Fifteen minutes of nose work does more for a restless indoor dog than a thirty-minute march around the block. That is the entire reason a snuffle mat exists.</p>"
+          }
+        },
+        "b2": {
+          "type": "column",
+          "settings": {
+            "title": "Fast eating is the thing owners notice first",
+            "text": "<p>If dinner is over in under a minute, the bowl is doing nothing. A maze bowl buys you ten minutes of calm and a dog that settles afterwards.</p>"
+          }
+        },
+        "b3": {
+          "type": "column",
+          "settings": {
+            "title": "Fur is a maintenance job, not an event",
+            "text": "<p>Two minutes with a glove, once a day, beats an hour of wrestling once a month. Every grooming tool here is designed to be quick enough that you actually do it.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3"
+      ],
+      "settings": {
+        "title": "Why it works",
+        "heading_size": "h2",
+        "columns_desktop": 3,
+        "columns_mobile": "1",
+        "column_alignment": "left",
+        "background_style": "none",
+        "color_scheme": "scheme-2",
+        "swipe_on_mobile": false,
+        "padding_top": 48,
+        "padding_bottom": 48
+      }
+    },
+    "enrichment": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "Food puzzles that get used twice a day",
+        "heading_size": "h2",
+        "description": "",
+        "show_description": false,
+        "collection": "enrichment",
+        "products_to_show": 4,
+        "columns_desktop": 4,
+        "columns_mobile": "2",
+        "color_scheme": "scheme-1",
+        "show_view_all": true,
+        "view_all_style": "link",
+        "swipe_on_mobile": true,
+        "image_ratio": "square",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "standard",
+        "padding_top": 48,
+        "padding_bottom": 36
+      }
+    },
+    "honest_proof": {
+      "type": "rich-text",
+      "blocks": {
+        "h": {
+          "type": "heading",
+          "settings": {
+            "heading": "We have no reviews yet. Here is exactly why.",
+            "heading_size": "h2"
+          }
+        },
+        "t": {
+          "type": "text",
+          "settings": {
+            "text": "<p><strong>This is a brand-new store. It has not shipped an order yet.</strong></p><p>That means there are no customer reviews on this page &mdash; and we are not going to invent any. Fake testimonials are not just tacky, they are illegal in the US under the FTC's rules on deceptive reviews.</p><p>What we can show you instead: the exact supplier listing every product is sourced from, with its real rating and units-sold figures, printed on each product page. Judge the product on the supplier's feedback, not our fiction.</p><p>As real reviews arrive, this section becomes a review carousel. Honest placeholder now, real proof later.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "h",
+        "t"
+      ],
+      "settings": {
+        "desktop_content_position": "middle",
+        "content_alignment": "left",
+        "color_scheme": "scheme-2",
+        "full_width": false,
+        "padding_top": 52,
+        "padding_bottom": 52
+      }
+    },
+    "faq": {
+      "type": "collapsible-content",
+      "blocks": {
+        "r1": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "How long does shipping take?",
+            "row_content": "<p>Most US orders arrive in <strong>7–15 days</strong>. Items ship directly from our supplier partners, which is how we keep prices where they are. You get tracking by email as soon as it is dispatched.</p>"
+          }
+        },
+        "r2": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Why is it not 2-day shipping like a big store?",
+            "row_content": "<p>Because we are not stocking a warehouse. Two-day shipping would mean buying inventory up front and charging you for it. We would rather be honest about a 7–15 day window than promise two days and miss it.</p>"
+          }
+        },
+        "r3": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "What if my pet doesn't like it?",
+            "row_content": "<p>Send it back unused within 30 days of delivery and we refund the item price. Full details, including who pays return postage, are in our refund policy.</p>"
+          }
+        },
+        "r4": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Are these safe for a puppy or a chewer?",
+            "row_content": "<p>Nothing here is a chew toy. Snuffle mats and lick mats are feeding tools and should be used supervised, then put away. Swallowed fabric or silicone is a vet visit.</p>"
+          }
+        },
+        "r5": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Do you make health claims?",
+            "row_content": "<p>No. Nothing here treats, cures or prevents anything. These are enrichment and grooming accessories. If your pet has a diagnosed condition, that is a conversation with your vet, not a shopping cart.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4",
+        "r5"
+      ],
+      "settings": {
+        "caption": "",
+        "heading": "The ones people actually ask",
+        "heading_size": "h2",
+        "heading_alignment": "left",
+        "layout": "none",
+        "color_scheme": "scheme-1",
+        "container_color_scheme": "scheme-1",
+        "open_first_collapsible_row": true,
+        "desktop_layout": "question-answer",
+        "padding_top": 48,
+        "padding_bottom": 36
+      }
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {
+        "color_scheme": "scheme-4",
+        "full_width": true,
+        "padding_top": 48,
+        "padding_bottom": 48,
+        "desktop_content_position": "middle"
+      }
+    }
+  },
+  "order": [
+    "sniffari_hero",
+    "bestsellers",
+    "why_it_works",
+    "enrichment",
+    "honest_proof",
+    "faq",
+    "newsletter"
+  ]
+}
