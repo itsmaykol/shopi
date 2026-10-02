@@ -36,7 +36,7 @@ export const collections = [
   },
   {
     handle: "cleanup",
-    title: "Paws, Walks & Cleanup",
+    title: "Paws & Walks",
     blurb: "Keep the outside outside — muddy paws, shared water bowls, wet-dog floors.",
     featured: true,
   },

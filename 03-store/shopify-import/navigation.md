@@ -9,7 +9,7 @@ Admin → **Online Store → Navigation**.
 | Shop all | Collections → Bestsellers |
 | Enrichment | Collections → Enrichment & Feeder Puzzles |
 | Grooming | Collections → Grooming & Shed Control |
-| Walks & cleanup | Collections → Paws, Walks & Cleanup |
+| Paws & walks | Collections → Paws & Walks |
 | Bundles | Collections → Value Bundles |
 | About | Pages → About |
 
@@ -23,7 +23,7 @@ Admin → **Online Store → Navigation**.
 Shop all          → /collections/bestsellers
 Enrichment        → /collections/enrichment
 Grooming          → /collections/grooming
-Walks & cleanup   → /collections/cleanup
+Paws & walks      → /collections/cleanup
 Bundles           → /collections/bundles
 About             → /pages/about
 Help  ▾
@@ -44,7 +44,7 @@ Shopify has **three** footer menus (Dawn: "Footer menu", plus optional second/th
 | Bestsellers | /collections/bestsellers |
 | Enrichment | /collections/enrichment |
 | Grooming | /collections/grooming |
-| Walks & cleanup | /collections/cleanup |
+| Paws & walks | /collections/cleanup |
 | Bundles | /collections/bundles |
 
 **Footer menu 2 — Help**

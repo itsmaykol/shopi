@@ -12,7 +12,7 @@ condition **Product tag → is equal to → (tag below)** → Save.
 | Bestsellers | `bestsellers` | Product tag is equal to | `Bestsellers` |
 | Enrichment & Feeder Puzzles | `enrichment` | Product tag is equal to | `Enrichment & Feeder Puzzles` |
 | Grooming & Shed Control | `grooming` | Product tag is equal to | `Grooming & Shed Control` |
-| Paws, Walks & Cleanup | `cleanup` | Product tag is equal to | `Paws, Walks & Cleanup` |
+| Paws & Walks | `cleanup` | Product tag is equal to | `Paws & Walks` |
 | Value Bundles | `bundles` | Product tag is equal to | `Value Bundles` |
 
 Then, in each collection's **Description** field, paste:
@@ -26,7 +26,7 @@ Then, in each collection's **Description** field, paste:
 **Grooming & Shed Control**
 > For the fur that has somehow ended up inside a closed drawer.
 
-**Paws, Walks & Cleanup**
+**Paws & Walks**
 > Keep the outside outside — muddy paws, shared water bowls, wet-dog floors.
 
 **Value Bundles**

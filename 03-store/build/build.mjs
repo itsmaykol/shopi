@@ -103,7 +103,7 @@ const nav = () => `
       <a href="/collection/bestsellers.html">Shop all</a>
       <a href="/collection/enrichment.html">Enrichment</a>
       <a href="/collection/grooming.html">Grooming</a>
-      <a href="/collection/cleanup.html">Walks &amp; cleanup</a>
+      <a href="/collection/cleanup.html">Paws &amp; walks</a>
       <a href="/collection/bundles.html">Bundles</a>
       <a href="/pages/about.html">About</a>
     </nav>
@@ -157,7 +157,7 @@ const footer = () => `
       <a href="/collection/bestsellers.html">Bestsellers</a>
       <a href="/collection/enrichment.html">Enrichment</a>
       <a href="/collection/grooming.html">Grooming</a>
-      <a href="/collection/cleanup.html">Walks &amp; cleanup</a>
+      <a href="/collection/cleanup.html">Paws &amp; walks</a>
       <a href="/collection/bundles.html">Bundles</a>
     </div>
     <div class="footer-col">

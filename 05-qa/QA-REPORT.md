@@ -119,3 +119,22 @@ cd 05-qa && node qa.mjs http://127.0.0.1:8080 ./screenshots
 
 The script exits non-zero-equivalent output listing every issue, so it can be re-run after any edit as a
 regression check. `qa-results.json` holds the full per-page dataset.
+
+---
+
+## 9. Post-QA fixes (round 4 — found while packaging the import files)
+
+These were found by validating the *import artifacts* rather than the storefront, and are worth
+recording because two of them would have broken the Shopify setup in ways the preview could never
+reveal.
+
+| # | Issue | Impact | Fix |
+|---|---|---|---|
+| 1 | **All 37 product image URLs pointed at AVIF files** | Shopify's "download image from URL" importer is unreliable with AVIF; products could have imported with **no images** | Stripped the AliExpress format parameter so the CSV requests plain **JPEG/PNG**; shipped the original-URL CSV as a documented fallback |
+| 2 | **The "Paws, Walks & Cleanup" collection title contained a comma** | A comma inside a Shopify tag makes the CSV split it into two tags, so the automated collection would have matched **zero products** and shipped as a dead, empty page | Renamed the collection to **"Paws & Walks"** so the tag is comma-free |
+| 3 | Near-duplicate tags `Bestseller` and `Bestsellers` | Confusing in the admin and easy to misconfigure | The product-badge tag is now `Hero product`; `Bestsellers` stays reserved as the collection tag |
+| 4 | No protection against issue #2 recurring | Any future collection title with a comma would silently produce another dead collection | Added a **hard build guard** to `handoff.mjs` that throws with an explanatory message if any collection title contains a comma |
+
+**Re-verified after all four fixes:** 26 pages, **0 issues**; all 5 collections confirmed to match
+between 2 and 7 products each; 12 unique product handles; 356-file theme zip containing only
+Shopify's seven legal root directories.

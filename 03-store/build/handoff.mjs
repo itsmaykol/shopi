@@ -22,6 +22,19 @@ const IMP = join(ROOT, "shopify-import");
 const EMAILS = join(ROOT, "emails");
 
 const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+// HARD GUARD: Shopify tag conditions match on an exact tag string, and a comma inside a tag makes
+// the CSV split it into two tags — which silently produces an automated collection that matches
+// nothing. Fail the build loudly instead of shipping a dead collection.
+for (const c of collections) {
+  if (c.title.includes(",")) {
+    throw new Error(
+      `Collection title "${c.title}" contains a comma. Shopify tags cannot contain commas — ` +
+        `the CSV import will split it and the automated collection will match zero products. ` +
+        `Rename the collection in data.mjs.`
+    );
+  }
+}
 const money = (n) => n.toFixed(2);
 
 // ── CSV helpers
@@ -54,6 +67,17 @@ if torn. Nothing here is medical advice or a treatment for any condition.</p>
 ${p.faq.map(([q, a]) => `<p><strong>${esc(q)}</strong><br>${esc(a)}</p>`).join("\n")}`;
 
 // ── products.csv (official Shopify product import format)
+//
+// IMAGE FORMAT NOTE (this matters — read it):
+// AliExpress serves images with an on-the-fly format parameter, e.g.
+//   .../S8354...jpg_600x600q75.jpg_.avif
+// The trailing `_.avif` asks the CDN for AVIF (so does the `_` before it). Shopify's "download image from URL" importer is
+// stricter about formats than the admin uploader, so we strip that suffix to request the plain
+// JPEG variant, which every version of the importer accepts:
+//   .../S8354...jpg_600x600q75.jpg
+// If the JPEG variant 404s for any file, the fallback CSV (products-avif-fallback.csv) uses the
+// original URLs verbatim.
+const toJpegVariant = (u) => u.replace(/_?\.avif$/, "");
 const HEAD = [
   "Handle",
   "Title",
@@ -113,10 +137,12 @@ const HEAD = [
 ];
 
 const CATEGORY = "Animals & Pet Supplies > Pet Supplies";
+// NOTE: the badge "Bestseller" is renamed to "Hero product" as a tag, so the admin does not end up
+// with both "Bestseller" and "Bestsellers" tags (the latter is a collection title and must stay exact).
 const tagsFor = (p) =>
   [
     ...p.collections.map((c) => (collections.find((x) => x.handle === c) || {}).title),
-    p.badge ? p.badge.split("·")[0].trim() : null,
+    p.badge ? (p.badge.split("·")[0].trim() === "Bestseller" ? "Hero product" : p.badge.split("·")[0].trim()) : null,
     "Free shipping eligible",
     p.collections.includes("bundles") ? "Bundle" : "Single item",
   ]
@@ -129,7 +155,8 @@ const gramsFor = (p) => {
   return p.collections.includes("bundles") ? 600 : 250; // sensible default, editable in Shopify
 };
 
-const lines = [row(HEAD)];
+const buildCsv = (imgTransform) => {
+  const lines = [row(HEAD)];
 
 products.forEach((p) => {
   const base = new Array(HEAD.length).fill("");
@@ -159,7 +186,7 @@ products.forEach((p) => {
   set("Variant Compare At Price", money(p.compareAt));
   set("Variant Requires Shipping", "TRUE");
   set("Variant Taxable", "TRUE");
-  set("Image Src", p.images[0]);
+  set("Image Src", imgTransform(p.images[0]));
   set("Image Position", 1);
   set("Image Alt Text", p.title);
   set("Gift Card", "FALSE");
@@ -174,12 +201,18 @@ products.forEach((p) => {
   for (let i = 1; i < p.images.length; i++) {
     const im = new Array(HEAD.length).fill("");
     im[HEAD.indexOf("Handle")] = p.handle;
-    im[HEAD.indexOf("Image Src")] = p.images[i];
+    im[HEAD.indexOf("Image Src")] = imgTransform(p.images[i]);
     im[HEAD.indexOf("Image Position")] = i + 1;
     im[HEAD.indexOf("Image Alt Text")] = `${p.title} — image ${i + 1}`;
     lines.push(row(im));
   }
 });
+
+  return lines;
+};
+
+const lines = buildCsv(toJpegVariant);          // primary: plain JPEG URLs
+const linesAvif = buildCsv((u) => u);           // fallback: original AVIF URLs
 
 // ── write everything
 if (existsSync(IMP)) rmSync(IMP, { recursive: true, force: true });
@@ -187,6 +220,7 @@ mkdirSync(join(IMP, "pages"), { recursive: true });
 mkdirSync(EMAILS, { recursive: true });
 
 writeFileSync(join(IMP, "products.csv"), lines.join("\n") + "\n");
+writeFileSync(join(IMP, "products-avif-fallback.csv"), linesAvif.join("\n") + "\n");
 
 /**
  * Page HTML. Shopify's rich-text editor accepts pasted HTML; these are deliberately simple
@@ -411,7 +445,7 @@ Admin → **Online Store → Navigation**.
 | Shop all | Collections → Bestsellers |
 | Enrichment | Collections → Enrichment & Feeder Puzzles |
 | Grooming | Collections → Grooming & Shed Control |
-| Walks & cleanup | Collections → Paws, Walks & Cleanup |
+| Paws & walks | Collections → Paws & Walks |
 | Bundles | Collections → Value Bundles |
 | About | Pages → About |
 
@@ -425,7 +459,7 @@ Admin → **Online Store → Navigation**.
 Shop all          → /collections/bestsellers
 Enrichment        → /collections/enrichment
 Grooming          → /collections/grooming
-Walks & cleanup   → /collections/cleanup
+Paws & walks      → /collections/cleanup
 Bundles           → /collections/bundles
 About             → /pages/about
 Help  ▾
@@ -446,7 +480,7 @@ Shopify has **three** footer menus (Dawn: "Footer menu", plus optional second/th
 | Bestsellers | /collections/bestsellers |
 | Enrichment | /collections/enrichment |
 | Grooming | /collections/grooming |
-| Walks & cleanup | /collections/cleanup |
+| Paws & walks | /collections/cleanup |
 | Bundles | /collections/bundles |
 
 **Footer menu 2 — Help**
@@ -797,6 +831,7 @@ instead, so Shopify wires them into the footer and checkout automatically.
 
 console.log("✓ handoff package written");
 console.log(`  ${IMP}/products.csv  (${lines.length - 1} rows incl. image rows)`);
+console.log(`  ${IMP}/products-avif-fallback.csv  (same products, original image URLs)`);
 console.log(`  ${IMP}/pages/ (${Object.keys(PAGES).length} pages)`);
 console.log(`  ${IMP}/collections.md · navigation.md · shipping-rates.md`);
 console.log(`  ${EMAILS}/ (4 flows)`);
